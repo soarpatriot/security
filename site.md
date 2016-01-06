@@ -63,24 +63,34 @@ add_header X-Frame-Options SAMEORIGIN;
 ```
 
 7. Ddos
+```
+加访问次数限制
+```
 
 ### 加强安全
-5. cookie
+1. cookie
 ```
 加密
 ```
 
-8. 使用https
+2. 使用https
 
-9. 密码
+3. 密码
 
 ```
 密码加密
 ```
 
-10. 重复提交
+4. 重复提交
 
 ```
 1. 重复提交form 表单  使用token
 ```
+
+5. mini and fix javascript
+```
+有点卵用,防小白
+```
+
+
 
