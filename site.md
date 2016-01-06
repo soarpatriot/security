@@ -48,6 +48,8 @@ ajax: 跨域开放时，给出有限访问的白名单
 ```
 4. x-frame cfs
 
+[test frame](./iframe.html)
+
 ```
 Using X-Frame-Options
 DENY
@@ -76,15 +78,13 @@ add_header X-Frame-Options SAMEORIGIN;
 2. 使用https
 
 3. 密码
-
 ```
 密码加密
 ```
 
 4. 重复提交
-
 ```
-1. 重复提交form 表单  使用token
+ 重复提交form 表单  使用token
 ```
 
 5. mini and fix javascript
