@@ -92,5 +92,6 @@ add_header X-Frame-Options SAMEORIGIN;
 有点卵用,防小白
 ```
 
+6. 统一的错误提示，不要暴力错误细节给用户
 
 
